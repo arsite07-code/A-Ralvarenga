@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - A/R</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#D4AF37;
+      --bg:#000000;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.72);
+      --border: rgba(212,175,55,.28);
+      --panel: rgba(255,255,255,.03);
+      --row1: rgba(212,175,55,.06);
+      --row2: rgba(255,255,255,.02);
+      --success-border: rgba(31,191,117,.35);
+      --success-bg: rgba(31,191,117,.10);
+      --error-border: rgba(255,77,77,.35);
+      --error-bg: rgba(255,77,77,.10);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      min-height:100vh;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:5;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212,175,55,.12);
+    }
+
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 900;
+      letter-spacing:.6px;
+    }
+
+    .dot{
+      width:38px;
+      height:38px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background: rgba(212,175,55,.10);
+      border: 1px solid rgba(212,175,55,.25);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(212,175,55,.10);
+    }
+
+    nav a{
+      color: var(--text);
+      text-decoration:none;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      font-size: 13px;
+      display:inline-block;
+      white-space:nowrap;
+    }
+
+    nav a:hover{ border-color: var(--border); background: rgba(255,255,255,.03); color: var(--gold); }
+
+    main{ padding: 26px 18px 70px; }
+
+    .page{
+      max-width:1120px;
+      margin:0 auto;
+    }
+
+    .flash-top{ margin-bottom: 18px; }
+
+    .flash{
+      border-radius: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--success-border);
+      background: var(--success-bg);
+      color: #d6ffe9;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .flash.error{
+      border: 1px solid var(--error-border);
+      background: var(--error-bg);
+      color: #ffb3b3;
+    }
+
+    .flash .icon{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      font-size: 16px;
+      font-weight: 900;
+      border: 1px solid var(--success-border);
+      background: rgba(31,191,117,.18);
+    }
+
+    .flash.error .icon{
+      border: 1px solid var(--error-border);
+      background: rgba(255,77,77,.18);
+    }
+
+    .head{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .title{
+      color: var(--gold);
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing:.5px;
+    }
+
+    .sub{
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .sections{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .section-card{
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 0 40px rgba(212,175,55,.05);
+      overflow:hidden;
+      padding: 18px;
+    }
+
+    .section-card h2{
+      margin:0 0 12px;
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing:.3px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.18);
+    }
+
+    thead th{
+      text-align:left;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--gold);
+      background: rgba(212,175,55,.08);
+      border-bottom: 1px solid rgba(212,175,55,.22);
+      font-weight: 900;
+    }
+
+    tbody td{
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    tbody tr:nth-child(odd) td{ background: var(--row1); }
+    tbody tr:nth-child(even) td{ background: var(--row2); }
+    tbody tr:last-child td{ border-bottom:none; }
+
+    .empty{
+      border: 1px dashed rgba(212,175,55,.35);
+      background: rgba(212,175,55,.06);
+      border-radius: 18px;
+      padding: 16px 14px;
+      color: var(--muted);
+      font-weight: 900;
+      line-height:1.5;
+    }
+
+    .footer-note{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="dot">A/R</div>
+        <div>Painel Admin</div>
+      </div>
+
+      <nav>
+        <a href="/">Início</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/projeto">Projetos</a>
+        <a href="/loja">Loja</a>
+        <a href="/cadastro">Cadastro</a>
+        <a href="/admin">Painel Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page">
+      <div class="flash-top">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              {% if category == 'success' %}
+                <div class="flash" role="status">
+                  <div class="icon">✅</div>
+                  <div>
+                    <div style="font-weight:900;">Sucesso</div>
+                    <div style="opacity:.95;">{{ message }}</div>
+                  </div>
+                </div>
+              {% elif category == 'error' %}
+                <div class="flash error" role="alert">
+                  <div class="icon">⚠️</div>
+                  <div>
+                    <div style="font-weight:900;">Erro</div>
+                    <div style="opacity:.95;">{{ message }}</div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <div class="head">
+        <div class="title">Dashboard</div>
+        <div class="sub">Clientes e compras registrados na plataforma</div>
+      </div>
+
+      <div class="sections">
+        <section class="section-card">
+          <h2>Clientes Cadastrados</h2>
+          {% if clientes and clientes|length > 0 %}
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for c in clientes %}
+                  <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.email }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="empty">Nenhum cliente cadastrado.</div>
+          {% endif %}
+        </section>
+
+        <section class="section-card">
+          <h2>Registro de Compras</h2>
+
+          {% if compras and compras|length > 0 %}
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Produto</th>
+                  <th>Valor</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for compra in compras %}
+                  <tr>
+                    <td>{{ compra.id }}</td>
+                    <td>{{ compra.produto }}</td>
+                    <td>{{ 'R$ ' ~ '%.2f'|format(compra.valor) if compra.valor is not none else '' }}</td>
+                    <td>{{ compra.data }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="empty">Nenhuma compra ainda.</div>
+          {% endif %}
+

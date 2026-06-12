@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja - A/R</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#D4AF37;
+      --bg:#000000;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.72);
+      --border: rgba(212,175,55,.28);
+      --panel: rgba(255,255,255,.03);
+      --success-bg: rgba(31,191,117,.10);
+      --success-border: rgba(31,191,117,.35);
+    }
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      min-height:100vh;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:5;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212,175,55,.12);
+    }
+
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 900;
+      letter-spacing:.6px;
+    }
+    .dot{
+      width:38px;
+      height:38px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background: rgba(212,175,55,.10);
+      border: 1px solid rgba(212,175,55,.25);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(212,175,55,.10);
+    }
+
+    nav a{
+      color: var(--text);
+      text-decoration:none;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      font-size: 13px;
+      display:inline-block;
+      white-space:nowrap;
+    }
+    nav a:hover{ border-color: var(--border); background: rgba(255,255,255,.03); color: var(--gold); }
+
+    main{ padding: 26px 18px 70px; }
+
+    .flash-top{
+      max-width:1120px;
+      margin: 0 auto 18px;
+      padding: 0 0;
+    }
+
+    .flash{
+      border-radius: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--success-border);
+      background: var(--success-bg);
+      color: #d6ffe9;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-weight: 900;
+    }
+
+    .flash .icon{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background: rgba(31,191,117,.18);
+      border: 1px solid var(--success-border);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+    }
+
+    .grid{
+      max-width:1120px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 22px;
+      box-shadow: 0 0 40px rgba(212,175,55,.06);
+      overflow:hidden;
+    }
+
+    .card-body{ padding: 18px; }
+
+    .product{
+      display:flex;
+      gap: 16px;
+      align-items:flex-start;
+      padding: 10px 0;
+    }
+
+    .img{
+      width: 220px;
+      height: 220px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.18);
+      background: rgba(212,175,55,.06);
+      overflow:hidden;
+      flex: 0 0 auto;
+      display:grid;
+      place-items:center;
+    }
+    .img img{ width:100%; height:100%; object-fit:cover; }
+
+    h1{
+      margin:0;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .muted{ color: var(--muted); line-height:1.6; margin-top: 10px; font-size: 14px; }
+
+    .meta{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 14px; }
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,55,.20);
+      background: rgba(212,175,55,.06);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .buy{ margin-top: 18px; display:flex; flex-direction:column; gap: 12px; }
+
+    .price{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(212,175,55,.20);
+      background: rgba(212,175,55,.07);
+    }
+
+    .price .now{ font-size: 28px; font-weight: 900; letter-spacing:-.4px; }
+    .price .tag{ color: var(--muted); font-size: 13px; font-weight: 800; }
+
+    .btn{
+      width:100%;
+      padding: 14px 14px;
+      border:none;
+      border-radius: 16px;
+      background: var(--gold);
+      color:#000;
+      font-weight: 900;
+      cursor:pointer;
+      transition: .2s;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 0 18px rgba(212,175,55,.22); }
+
+    .side{ display:flex; flex-direction:column; gap: 14px; }
+    .mini{
+      padding: 16px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 22px;
+    }
+    .mini h3{ margin:0 0 8px; color: var(--gold); font-size: 16px; font-weight: 900; }
+    .mini p{ margin:0; color: var(--muted); line-height:1.6; font-size: 14px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="dot">A/R</div>
+      <div>Loja</div>
+    </div>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/sobre">Sobre</a>
+      <a href="/projeto">Projetos</a>
+      <a href="/loja">Loja</a>
+      <a href="/cadastro">Cadastro</a>
+      <a href="/admin">Painel Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="flash-top">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {% if category == 'success' %}
+            <div class="flash" role="status">
+              <div class="icon">✅</div>
+              <div>
+                <div style="font-weight:900;">Sucesso</div>
+                <div style="opacity:.95;">{{ message }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <div class="card-body">
+        <div class="product">
+          <div class="img">
+            <img src="/static/img/Camiseta_Oversized_Legacy_Preto_-_Mockup_1.webp" alt="Camiseta" />
+          </div>
+
+          <div>
+            <h1>Camiseta Oversized Premium</h1>
+            <div class="muted">Design moderno, caimento confortável e estilo urbano.</div>
+
+            <div class="meta">
+              <div class="pill">Streetwear</div>
+              <div class="pill">Premium</div>
+              <div class="pill">Black/GOLD</div>
+            </div>
+
+            <div class="buy">
+              <div class="price">
+                <div>
+                  <div class="tag">A partir de</div>
+                  <div class="now">R$ 129,90</div>
+                </div>
+                <div class="tag">Unidade</div>
+              </div>
+
+              <form method="POST" action="{{ url_for('comprar') }}">
+                <input type="hidden" name="produto" value="Camiseta Oversized Premium" />
+                <input type="hidden" name="valor" value="129.90" />
+                <button class="btn" type="submit">Comprar Agora</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="mini">
+        <h3>Como funciona</h3>
+        <p>Ao clicar em “Comprar Agora”, a compra é salva no SQLite e aparece no painel Admin.</p>
+      </div>
+
+      <div class="mini">
+        <h3>Transparência</h3>
+        <p>Os dados exibidos no Admin vêm diretamente do banco. Se estiver vazio, mostramos a mensagem exata.</p>
+      </div>
+    </aside>
+  </div>
+
+</main>
+</body>
+</html>
+
+

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos - A/R</title>
+  <link rel="shortcut icon" href="/static/img/Captura de tela 2026-04-24 165449.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#D4AF37;
+      --bg:#000000;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.72);
+      --border: rgba(212,175,55,.28);
+      --panel: rgba(255,255,255,.03);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      min-height:100vh;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:5;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212,175,55,.12);
+    }
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:.6px;
+    }
+    .logoDot{
+      width:38px;
+      height:38px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background: rgba(212,175,55,.10);
+      border: 1px solid rgba(212,175,55,.25);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(212,175,55,.10);
+    }
+
+    nav a{
+      color: var(--text);
+      text-decoration:none;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      font-size: 13px;
+      display:inline-block;
+      white-space:nowrap;
+    }
+    nav a:hover{ border-color: var(--border); background: rgba(255,255,255,.03); color: var(--gold); }
+
+    main{ padding: 34px 18px 70px; }
+    .content{
+      max-width:1120px;
+      margin:0 auto;
+    }
+    .title{
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing:.4px;
+      margin:0 0 10px;
+      font-size: 26px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 0 40px rgba(212,175,55,.05);
+      overflow:hidden;
+    }
+    .card img{ width:100%; height: 240px; object-fit:cover; display:block; }
+    .card .body{ padding: 16px; }
+    .card h3{ margin:0 0 6px; color: var(--gold); font-size: 16px; font-weight: 900; }
+    .card p{ margin:0; color: var(--muted); line-height:1.7; font-size: 14.5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logoDot">A/R</div>
+        <div>Agência Alvarenga</div>
+      </div>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/projeto">Projetos</a>
+        <a href="/loja">Loja</a>
+        <a href="/cadastro">Cadastro</a>
+        <a href="/admin">Painel Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1 class="title">Projetos em destaque</h1>
+      <div class="grid">
+        <div class="card">
+          <img src="/static/img/D_NQ_NP_951861-MLB81822831090_012025-O-camisa-camiseta-oversized-streetwear-estampada-urso-anjo.webp" alt="Projeto 1" />
+          <div class="body">
+            <h3>Landing Premium + Loja</h3>
+            <p>Visual elegante e fluxo de compra com registro em SQLite.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/static/img/Captura de tela 2026-04-28 143222.png" alt="Projeto 2" />
+          <div class="body">
+            <h3>Painel Admin</h3>
+            <p>Dashboard clean com listas e mensagens vazias controladas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+

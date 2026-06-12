@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro - A/R</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#D4AF37;
+      --bg:#000000;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.72);
+      --border: rgba(212,175,55,.35);
+      --success-bg: rgba(31,191,117,.10);
+      --success-border: rgba(31,191,117,.35);
+      --error-bg: rgba(255,77,77,.10);
+      --error-border: rgba(255,77,77,.35);
+    }
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 26px 16px;
+    }
+
+    .card{
+      width:100%;
+      max-width: 560px;
+      background: rgba(0,0,0,.65);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 0 30px rgba(212,175,55,.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar{
+      margin-bottom: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      padding: 12px;
+    }
+
+    .flash{
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 900;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      line-height:1.35;
+      margin-bottom: 10px;
+    }
+
+    .flash.success{
+      border: 1px solid var(--success-border);
+      background: var(--success-bg);
+      color: #d6ffe9;
+    }
+
+    .flash.error{
+      border: 1px solid var(--error-border);
+      background: var(--error-bg);
+      color: #ffb3b3;
+    }
+
+    .flash .icon{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .flash.success .icon{ background: rgba(31,191,117,.18); border: 1px solid var(--success-border); }
+    .flash.error .icon{ background: rgba(255,77,77,.18); border: 1px solid var(--error-border); }
+
+    .title{
+      text-align:center;
+      font-weight:900;
+      letter-spacing:.3px;
+      color: var(--gold);
+      font-size: 26px;
+      margin: 4px 0 6px;
+    }
+
+    .subtitle{
+      text-align:center;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height:1.5;
+      font-size: 14px;
+    }
+
+    .section{
+      margin-top: 14px;
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing:.2px;
+    }
+
+    form{ display:flex; flex-direction:column; gap: 12px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 860px){
+      .grid-2{ grid-template-columns: 1fr 1fr; }
+    }
+
+    label{
+      display:block;
+      color: var(--gold);
+      font-size: 13px;
+      margin-bottom: 6px;
+      font-weight: 900;
+    }
+
+    input{
+      width:100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #000;
+      color: #fff;
+      outline:none;
+      transition: .2s;
+    }
+
+    input::placeholder{ color: rgba(255,255,255,.45); }
+
+    input:focus{
+      border-color: rgba(212,175,55,.75);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.18);
+    }
+
+    .btn{
+      width:100%;
+      margin-top: 8px;
+      padding: 12px 16px;
+      border:none;
+      border-radius: 30px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 900;
+      cursor:pointer;
+      transition: .25s;
+    }
+
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 0 18px rgba(212,175,55,.22); }
+    .btn:disabled{ opacity:.7; cursor:not-allowed; transform:none; box-shadow:none; }
+
+    .hint{
+      text-align:center;
+      margin-top: 12px;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hint a{ color: var(--gold); text-decoration:none; font-weight:900; }
+    .hint a:hover{ text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="topbar">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            {% if category == 'success' %}
+              <div class="flash success" role="status">
+                <div class="icon">✅</div>
+                <div>
+                  <div style="font-weight:900;">Sucesso</div>
+                  <div style="opacity:.95;">{{ message }}</div>
+                </div>
+              </div>
+            {% elif category == 'error' %}
+              <div class="flash error" role="alert">
+                <div class="icon">⚠️</div>
+                <div>
+                  <div style="font-weight:900;">Erro</div>
+                  <div style="opacity:.95;">{{ message }}</div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <div class="title">Cadastro</div>
+    <div class="subtitle">Crie sua conta no estilo streetwear.</div>
+
+    <form method="POST" action="{{ url_for('cadastrar') }}" novalidate>
+      <div>
+        <div class="section">Dados</div>
+
+        <div class="grid">
+          <div>
+            <label for="nome">Nome Completo</label>
+            <input id="nome" name="nome" type="text" required placeholder="Seu nome completo" />
+          </div>
+
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" required placeholder="voce@exemplo.com" />
+          </div>
+
+          <div>
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" minlength="4" required placeholder="Crie uma senha" />
+          </div>
+        </div>
+      </div>
+
+      <button class="btn" type="submit">Criar conta</button>
+
+      <div class="hint">Já tem conta? <a href="/loja">Ir para a loja</a></div>
+    </form>
+  </div>
+</body>
+</html>
+
